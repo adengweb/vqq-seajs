@@ -3,6 +3,23 @@ define('index', ['jquery'], function(require, exports, module) {
   var __index = {
     // 轮播图
     slide: function(){
+      var _timr = null;
+      var _timeSlide = function(_index){
+         var _imgLength = $('.j_slide .slide-title ul li a').length;
+         _timr = setInterval(function(){
+          if(_index < _imgLength - 1){
+            _index ++;
+          }else{
+            _index = 0;
+          }
+          // 先清除
+          $('.j_slide .slide-title ul li a').removeClass('cur');
+          $('.j_slide .slide-img ul li').css({'opacity':0});
+          //在添加对应位置的样式
+          $('.j_slide .slide-title ul li a').eq(_index).addClass('cur');
+          $('.j_slide .slide-img ul li').eq(_index).css({'opacity':1});
+         },3000);
+      }
       $.ajax({
         type: "get",
         url: "http://www.yinyuetai.com/mv/get-bigpic",
@@ -30,8 +47,16 @@ define('index', ['jquery'], function(require, exports, module) {
             }
           });
          }
-         // var _timr = ;
-         // $('.j_slide .slide-img').eq(_index).css({'opacity':1});
+
+         _timeSlide(_index); // 开启定时器
+
+         $('.j_slide').on('mouseover',function(){
+            clearInterval(_timr); 
+          });
+         $('.j_slide').on('mouseout',function(){
+            _timeSlide(_index);
+          });
+
         }
       });
     },
@@ -53,6 +78,7 @@ define('index', ['jquery'], function(require, exports, module) {
          }
         }
       });
+
     },
     // 娱乐
     recList: function(){
