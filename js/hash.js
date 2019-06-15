@@ -6,8 +6,11 @@ var ___h = {
   "index":"js/pc/index.js"
   
 };
+var BASE_URL = '//adeng.vip/act/seajs-vqq/';
+
 seajs.config({
   base:'../vqq-seajs/',
+  // base: BASE_URL,
   alias: ___h,
   preload:['jquery'],
   comboMaxLength: 1000
